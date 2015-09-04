@@ -1,12 +1,12 @@
 'use strict';
 
-var Bitmap = { function(data) {
-	this.bitmapFile = ???
-	this.headerOffset = this.bitmapFile.buf.splice(0, 14);
-	this.headerDIB = this.bitmapFile.buf.splice(14, 40);
-	this.width = this.bitmapFile.buf.readUint32[18];
-	this.height = this.bitmapFile.buf.readUint32[22];
-	this.pixelArrayStart = this.bitmapFile.buf.slice(54, this.header.dataOffset);
+var Bitmap = function(buffer) {
+	this.buffer = buffer; // this will link to Alex's read bitmap file
+	this.header = this.buffer.splice(0, 14);
+	this.headerDIB = this.buffer.splice(14, 40);
+	this.width = this.buffer.readUint32[18];
+	this.height = this.bufferreadUint32[22];
+	this.pixelArrayStart = this.bufferslice(54, buffer.length);
 	this.binaryData = [];
 	this.pixelatedColors = [];
 	};
