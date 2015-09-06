@@ -6,12 +6,12 @@ var Bitmap = function(buffer) {
 	this.headerDIB = this.buffer.splice(14, 40);
 	this.width = this.buffer.readUint32[18];
 	this.height = this.bufferreadUint32[22];
-	this.pixelArrayStart = this.bufferslice(54, buffer.length);
+	this.colorPallete = this.bufferslice(54, buffer.length);
 	this.binaryData = [];
-	this.pixelatedColors = [];
+	this.colorsArray = [];
 	};
 }
-// generate a way of reading out the the binary data for where header, width, height
+// generate a way of reading out the the binary data for where header, width, height, do we need this?
 Bitmap.prototype.binaryData = function(header, width, height) {
 	var binaryData = {};
 	binaryData.header = this.bitmapFile.readUint32[14];
@@ -20,20 +20,18 @@ Bitmap.prototype.binaryData = function(header, width, height) {
 	binaryData.push(binaryData);
 }
 
-Bitmap.prototype.pixelArrayStart = function() {
-	this.pixelArrayStart = this.bitmapFile.readUint32[54]; //accounting for 14 bits header and 40 bits DIB
-}; //should go to 70
-//generate splice to offset palleteTable to zero from where the header ends DIB
+Bitmap.prototype.colorPallete = function() {
+	this.colorPallete = this.bitmapFile.readUint32[54]; //accounting for 14 bits header and 40 bits DIB
+};
 
 Bitmap.prototype.palleteColorData = function() { // assigns RGB data to pallete
-	for(var i = 0; i < pixelArrayStart.length; i = i + 3) { // need to divide the 24 bit into 3 parts
-		pixelation = {};
-		pixelation.blue = this.pixelArrayStart.readUInt8(i); // based on wiki it appears blue, green, red order of pixel data
-		pixelation.green = this.pixelArrayStart.readUInt8(i + 1);
-		pixelation.red = this.pixelArrayStart.readUInt8(i + 2); 
-		this.pixelatedColors.push(pixelation); // pushes the pixelation data into Bitmap object
-	}
+	for(var i = 0; i < colorPallete.length; i = i + 3) {
+		var colorObject = {};
+		colorObject.blue = this.colorPallete.readUInt8(i); // based on wiki it appears blue, green, red order of pixel data
+		colorObject.green = this.colorPallete.readUInt8(i + 1);
+		colorObject.red = this.colorPallete.readUInt8(i + 2); 
+		this.colorArray.push(colorPallete); // pushes the pixelation data into Bitmap.colorPallete array
+	};
 }
 
-//rasher data = 
 module.exports = Bitmap;
