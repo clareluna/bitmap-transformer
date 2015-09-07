@@ -6,7 +6,7 @@ var Bitmap = function(buffer) {
 	this.headerDIB = this.buffer.splice(14, 40);
 	this.width = this.buffer.readUint32[18];
 	this.height = this.bufferreadUint32[22];
-	this.colorPallete = this.bufferslice(54, buffer.length);
+	this.colorPallete = this.buffer.splice(54, buffer.length);
 	this.binaryData = [];
 	this.colorsArray = [];
 	};
